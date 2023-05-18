@@ -69,6 +69,7 @@
       <ObjectFileName>$(IntDir)bsp\applications\</ObjectFileName>
     </ClCompile>
     <ClCompile Include="os_ipc.c" />
+    <ClCompile Include="os_ipc_port.c" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\components\libc\compilers\common\cctype.c">
@@ -264,6 +265,7 @@
     <ClInclude Include="drivers\uart_console.h" />
     <ClInclude Include="drivers\winsock\rtt_winsock.h" />
     <ClInclude Include="os_ipc.h" />
+    <ClInclude Include="os_ipc_port.h" />
     <ClInclude Include="rtconfig.h" />
     <ClInclude Include="rtconfig_project.h" />
     <ClInclude Include="..\..\components\dfs\filesystems\devfs\devfs.h" />

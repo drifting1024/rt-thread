@@ -2,13 +2,8 @@
 #include <rtdef.h>
 #include <stdint.h>
 #include <list.h>
+#include "os_ipc_port.h"
 
-typedef rt_err_t os_err_t;       /**< Type for error number */
-typedef void* os_queue_t;
-typedef void* os_mutex_t;
-typedef void* os_thread_t;
-typedef uint32_t os_priority_t;      // 1->highest prio,  31->lowest prio
-typedef uint32_t os_stack_size_t;    // size with bytes
 
 
 typedef struct os_ipc_msg os_ipc_msg_t;

@@ -24,6 +24,10 @@ struct list_head {
 	struct list_head *next, *prev;
 };
 
+typedef struct list_head list_header_t;
+#define INIT_LIST_HEAD(ptr) do { \
+	(ptr)->next = (ptr); (ptr)->prev = (ptr); \
+} while (0)
 
 #define LIST_HEAD_INIT(name) { &(name), &(name) }
 
@@ -49,6 +53,18 @@ struct list_head {
 	for (pos = list_entry((head)->next, typeof(*pos), member);	\
 	     &pos->member != (head); 	\
 	     pos = list_entry(pos->member.next, typeof(*pos), member))
+
+
+#define _list_entry(ptr, type, member) \
+((type *)((char *)(ptr)-(unsigned long)(&((type *)0)->member)))
+
+#define os_list_entry(type, member) \
+_list_entry(__node, type, member)
+
+#define os_list_foreach(head) \
+for(list_header_t *__node = (head)->next, *__next = (head)->next->next;\
+__node != (head);\
+__node = __next, __next = __next->next)
 
 /**
  * list_for_each_entry_safe - iterate over list of given type safe against removal of list entry
@@ -86,6 +102,11 @@ static inline void __list_add(struct list_head *_new,
 	_new->next = next;
 	_new->prev = prev;
 	prev->next = _new;
+}
+
+static inline void list_add(struct list_head *new, struct list_head *head)
+{
+	__list_add(new, head, head->next);
 }
 
 /**
