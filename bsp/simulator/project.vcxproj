@@ -15,14 +15,14 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
-    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" />
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
@@ -36,7 +36,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;..\..\components\dfs\filesystems\devfs;..\..\components\dfs\filesystems\elmfat;..\..\components\dfs\include;..\..\components\drivers\include;..\..\components\finsh;..\..\components\libc\compilers\common\extension;..\..\components\libc\compilers\common\extension\fcntl\msvc;..\..\components\libc\compilers\common\include;..\..\components\libc\posix\io\poll;..\..\components\libc\posix\io\stdio;..\..\components\libc\posix\ipc;..\..\components\net\netdev\include;..\..\components\net\sal\include;..\..\components\net\sal\include\dfs_net;..\..\components\net\sal\include\socket;..\..\components\net\sal\include\socket\sys_socket;..\..\include;..\..\libcpu\sim\win32;SDL2\include;applications;drivers;E:\Git\rt-thread\tools\kconfig-frontends\libs\parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\components\dfs\filesystems\devfs;..\..\components\dfs\filesystems\elmfat;..\..\components\dfs\include;..\..\components\drivers\include;..\..\components\finsh;..\..\components\libc\compilers\common\extension;..\..\components\libc\compilers\common\extension\fcntl\msvc;..\..\components\libc\compilers\common\include;..\..\components\libc\posix\io\poll;..\..\components\libc\posix\io\stdio;..\..\components\libc\posix\ipc;..\..\components\net\netdev\include;..\..\components\net\sal\include;..\..\components\net\sal\include\dfs_net;..\..\components\net\sal\include\socket;..\..\components\net\sal\include\socket\sys_socket;..\..\include;..\..\libcpu\sim\win32;SDL2\include;applications;drivers;..\..\bsp\simulator\applications;..\..\tools\kconfig-frontends\libs\parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;MSVC;RT_USING_LIBC;_CRT_DECLARE_NONSTDC_NAMES=0;_CRT_ERRNO_DEFINED;_CRT_NO_TIME_T;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;__RTTHREAD__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -59,6 +59,8 @@
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ItemGroup>
+    <ClCompile Include="applications\os_ipc.c" />
+    <ClCompile Include="applications\os_ipc_port.c" />
     <ClCompile Include="applications\platform.c">
       <ObjectFileName>$(IntDir)bsp\applications\</ObjectFileName>
     </ClCompile>
@@ -68,8 +70,6 @@
     <ClCompile Include="applications\application.c">
       <ObjectFileName>$(IntDir)bsp\applications\</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="os_ipc.c" />
-    <ClCompile Include="os_ipc_port.c" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\components\libc\compilers\common\cctype.c">
@@ -92,10 +92,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\libcpu\sim\win32\startup.c">
+    <ClCompile Include="..\..\libcpu\sim\win32\cpu_port.c">
       <ObjectFileName>$(IntDir)kernel\libcpu\sim\win32\</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="..\..\libcpu\sim\win32\cpu_port.c">
+    <ClCompile Include="..\..\libcpu\sim\win32\startup.c">
       <ObjectFileName>$(IntDir)kernel\libcpu\sim\win32\</ObjectFileName>
     </ClCompile>
   </ItemGroup>
@@ -129,17 +129,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="drivers\sd_sim.c">
+    <ClCompile Include="drivers\dfs_win32.c">
       <ObjectFileName>$(IntDir)bsp\drivers\</ObjectFileName>
     </ClCompile>
     <ClCompile Include="drivers\winsock\drv_win_eth.c">
       <ObjectFileName>$(IntDir)bsp\drivers\winsock\</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="drivers\winsock\sal_winsock.c">
-      <ObjectFileName>$(IntDir)bsp\drivers\winsock\</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="drivers\board.c">
-      <ObjectFileName>$(IntDir)bsp\drivers\</ObjectFileName>
     </ClCompile>
     <ClCompile Include="drivers\drv_rtc.c">
       <ObjectFileName>$(IntDir)bsp\drivers\</ObjectFileName>
@@ -147,7 +141,13 @@
     <ClCompile Include="drivers\uart_console.c">
       <ObjectFileName>$(IntDir)bsp\drivers\</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="drivers\dfs_win32.c">
+    <ClCompile Include="drivers\winsock\sal_winsock.c">
+      <ObjectFileName>$(IntDir)bsp\drivers\winsock\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="drivers\board.c">
+      <ObjectFileName>$(IntDir)bsp\drivers\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="drivers\sd_sim.c">
       <ObjectFileName>$(IntDir)bsp\drivers\</ObjectFileName>
     </ClCompile>
   </ItemGroup>
@@ -178,10 +178,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\components\finsh\shell.c">
+    <ClCompile Include="..\..\components\finsh\msh_parse.c">
       <ObjectFileName>$(IntDir)kernel\components\finsh\</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="..\..\components\finsh\msh_parse.c">
+    <ClCompile Include="..\..\components\finsh\msh.c">
       <ObjectFileName>$(IntDir)kernel\components\finsh\</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\components\finsh\msh_file.c">
@@ -190,7 +190,7 @@
     <ClCompile Include="..\..\components\finsh\cmd.c">
       <ObjectFileName>$(IntDir)kernel\components\finsh\</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="..\..\components\finsh\msh.c">
+    <ClCompile Include="..\..\components\finsh\shell.c">
       <ObjectFileName>$(IntDir)kernel\components\finsh\</ObjectFileName>
     </ClCompile>
   </ItemGroup>
@@ -261,6 +261,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="applications\os_ipc.h" />
+    <ClInclude Include="applications\os_ipc_port.h" />
     <ClInclude Include="drivers\board.h" />
     <ClInclude Include="drivers\uart_console.h" />
     <ClInclude Include="drivers\winsock\rtt_winsock.h" />
