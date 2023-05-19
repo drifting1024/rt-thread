@@ -129,6 +129,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="applications\service_hrm.c" />
+    <ClCompile Include="applications\service_ui.c" />
     <ClCompile Include="drivers\dfs_win32.c">
       <ObjectFileName>$(IntDir)bsp\drivers\</ObjectFileName>
     </ClCompile>
@@ -263,6 +265,8 @@
   <ItemGroup>
     <ClInclude Include="applications\os_ipc.h" />
     <ClInclude Include="applications\os_ipc_port.h" />
+    <ClInclude Include="applications\service_hrm.h" />
+    <ClInclude Include="applications\service_ui.h" />
     <ClInclude Include="drivers\board.h" />
     <ClInclude Include="drivers\uart_console.h" />
     <ClInclude Include="drivers\winsock\rtt_winsock.h" />

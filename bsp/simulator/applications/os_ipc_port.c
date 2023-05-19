@@ -1,5 +1,6 @@
 #include "os_ipc_port.h"
 
+// queue
 os_queue_t os_queue_create(const char* name, const uint32_t item_size, const uint32_t item_max_cnt)
 {
     rt_mq_t q = rt_mq_create(name, item_size, item_max_cnt, RT_IPC_FLAG_FIFO);
@@ -39,6 +40,7 @@ os_err_t os_queue_send(const os_queue_t queue, const void* pdata)
     return ret;
 }
 
+// mutex
 os_mutex_t os_mutex_create(const char* name)
 {
     os_mutex_t mutex = rt_mutex_create(name, RT_IPC_FLAG_FIFO);
@@ -66,6 +68,7 @@ os_err_t os_mutex_delete(const os_mutex_t mutex)
     return ret;
 }
 
+// thread
 os_thread_t os_thread_create(
     const char* name, 
     const os_thread_entry_t entry, 
@@ -90,6 +93,7 @@ os_err_t os_thread_delete(const os_thread_t thread)
     return (os_err_t)rt_ret;
 }
 
+// isr
 bool os_is_inside_isr(void)
 {
     // __get_IPSR()
@@ -106,6 +110,7 @@ void os_irq_enable(uint32_t irq)
     rt_hw_interrupt_enable(irq);
 }
 
+// delay
 os_err_t os_delay_ms(uint32_t ms)
 {
     return rt_thread_mdelay(ms);
