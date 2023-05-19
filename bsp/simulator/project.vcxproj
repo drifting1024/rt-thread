@@ -36,7 +36,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;..\..\components\dfs\filesystems\devfs;..\..\components\dfs\filesystems\elmfat;..\..\components\dfs\include;..\..\components\drivers\include;..\..\components\finsh;..\..\components\libc\compilers\common\extension;..\..\components\libc\compilers\common\extension\fcntl\msvc;..\..\components\libc\compilers\common\include;..\..\components\libc\posix\io\poll;..\..\components\libc\posix\io\stdio;..\..\components\libc\posix\ipc;..\..\components\net\netdev\include;..\..\components\net\sal\include;..\..\components\net\sal\include\dfs_net;..\..\components\net\sal\include\socket;..\..\components\net\sal\include\socket\sys_socket;..\..\include;..\..\libcpu\sim\win32;SDL2\include;applications;drivers;..\..\bsp\simulator\applications;..\..\tools\kconfig-frontends\libs\parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\components\dfs\filesystems\devfs;..\..\components\dfs\filesystems\elmfat;..\..\components\dfs\include;..\..\components\drivers\include;..\..\components\finsh;..\..\components\libc\compilers\common\extension;..\..\components\libc\compilers\common\extension\fcntl\msvc;..\..\components\libc\compilers\common\include;..\..\components\libc\posix\io\poll;..\..\components\libc\posix\io\stdio;..\..\components\libc\posix\ipc;..\..\components\net\netdev\include;..\..\components\net\sal\include;..\..\components\net\sal\include\dfs_net;..\..\components\net\sal\include\socket;..\..\components\net\sal\include\socket\sys_socket;..\..\include;..\..\libcpu\sim\win32;SDL2\include;applications;drivers;..\..\tools\kconfig-frontends\libs\parser;..\..\bsp\simulator\applications\demo\ipc;..\..\bsp\simulator\applications\demo\service;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;MSVC;RT_USING_LIBC;_CRT_DECLARE_NONSTDC_NAMES=0;_CRT_ERRNO_DEFINED;_CRT_NO_TIME_T;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;__RTTHREAD__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -59,8 +59,10 @@
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ItemGroup>
-    <ClCompile Include="applications\os_ipc.c" />
-    <ClCompile Include="applications\os_ipc_port.c" />
+    <ClCompile Include="applications\demo\ipc\os_ipc.c" />
+    <ClCompile Include="applications\demo\ipc\os_ipc_port.c" />
+    <ClCompile Include="applications\demo\service\service_hrm.c" />
+    <ClCompile Include="applications\demo\service\service_ui.c" />
     <ClCompile Include="applications\platform.c">
       <ObjectFileName>$(IntDir)bsp\applications\</ObjectFileName>
     </ClCompile>
@@ -129,8 +131,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="applications\service_hrm.c" />
-    <ClCompile Include="applications\service_ui.c" />
     <ClCompile Include="drivers\dfs_win32.c">
       <ObjectFileName>$(IntDir)bsp\drivers\</ObjectFileName>
     </ClCompile>
@@ -263,10 +263,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="applications\os_ipc.h" />
-    <ClInclude Include="applications\os_ipc_port.h" />
-    <ClInclude Include="applications\service_hrm.h" />
-    <ClInclude Include="applications\service_ui.h" />
+    <ClInclude Include="applications\demo\ipc\os_ipc.h" />
+    <ClInclude Include="applications\demo\ipc\os_ipc_port.h" />
+    <ClInclude Include="applications\demo\service\service_hrm.h" />
+    <ClInclude Include="applications\demo\service\service_ui.h" />
     <ClInclude Include="drivers\board.h" />
     <ClInclude Include="drivers\uart_console.h" />
     <ClInclude Include="drivers\winsock\rtt_winsock.h" />
